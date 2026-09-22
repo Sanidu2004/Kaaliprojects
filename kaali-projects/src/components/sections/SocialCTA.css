@@ -1,0 +1,22 @@
+.social-cta__inner {
+  text-align: center;
+}
+
+.social-cta h2 {
+  font-size: var(--fs-h2);
+  margin-bottom: 2rem;
+}
+
+.social-cta__play {
+  display: inline-grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: #ff0000;
+  transition: transform var(--transition-base);
+}
+
+.social-cta__play:hover {
+  transform: scale(1.06);
+}

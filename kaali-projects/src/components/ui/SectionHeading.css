@@ -1,0 +1,36 @@
+.section-heading {
+  position: relative;
+  max-width: 680px;
+  margin-bottom: 3rem;
+}
+
+.section-heading--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-heading h2 {
+  font-size: var(--fs-h2);
+  text-wrap: balance;
+}
+
+.section-heading::after {
+  display: block;
+  width: 54px;
+  height: 3px;
+  margin-top: 1.35rem;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, var(--color-primary), transparent);
+  content: '';
+}
+
+.section-heading--center::after {
+  margin-inline: auto;
+}
+
+.section-heading p {
+  margin-top: 1rem;
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+  text-wrap: balance;
+}

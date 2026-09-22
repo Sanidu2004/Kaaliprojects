@@ -1,0 +1,201 @@
+.trusted-brands {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-bg-alt);
+}
+
+.trusted-brands::before {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(760px, 80vw);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  content: '';
+  opacity: 0.7;
+  transform: translateX(-50%);
+}
+
+.trusted-brands__intro {
+  max-width: 680px;
+  margin: 0 auto 3.5rem;
+  text-align: center;
+}
+
+.trusted-brands__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+  color: var(--color-primary-soft);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.trusted-brands__eyebrow::before {
+  width: 24px;
+  height: 1px;
+  background: var(--color-primary);
+  content: '';
+}
+
+.trusted-brands__heading {
+  text-align: center;
+  font-size: var(--fs-h2);
+  text-wrap: balance;
+}
+
+.trusted-brands__intro p {
+  margin-top: 1rem;
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+}
+
+.trusted-brands__grid {
+  position: relative;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-surface) 56%, transparent);
+  box-shadow: 0 24px 80px rgb(0 0 0 / 0.12);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.trusted-brands__item {
+  min-height: 48px;
+  min-width: 0;
+  padding: 1rem 0.75rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  display: grid;
+  place-items: center;
+  opacity: 1;
+  transition: background var(--transition-base), border-color var(--transition-base), transform var(--transition-base);
+  animation: brand-arrive 700ms cubic-bezier(0.22, 1, 0.36, 1) both,
+    brand-float 6s ease-in-out 700ms infinite;
+}
+
+.trusted-brands__item:hover {
+  border-color: rgb(var(--color-primary-rgb) / 0.24);
+  background: rgb(var(--color-primary-rgb) / 0.07);
+  animation-play-state: paused;
+  transform: translateY(-3px);
+}
+
+.trusted-brands__item:nth-child(2) {
+  animation-delay: 80ms, 1s;
+}
+
+.trusted-brands__item:nth-child(3) {
+  animation-delay: 160ms, 1.3s;
+}
+
+.trusted-brands__item:nth-child(4) {
+  animation-delay: 240ms, 1.6s;
+}
+
+.trusted-brands__item:nth-child(5) {
+  animation-delay: 320ms, 1.9s;
+}
+
+.trusted-brands__item:nth-child(6) {
+  animation-delay: 400ms, 2.2s;
+}
+
+.trusted-brands__item:nth-child(7) {
+  animation-delay: 480ms, 2.5s;
+}
+
+.trusted-brands__item:nth-child(8) {
+  animation-delay: 560ms, 2.8s;
+}
+
+.trusted-brands__item:nth-child(9) {
+  animation-delay: 640ms, 3.1s;
+}
+
+.trusted-brands__item:nth-child(10) {
+  animation-delay: 720ms, 3.4s;
+}
+
+.trusted-brands__item:nth-child(11) {
+  animation-delay: 800ms, 3.7s;
+}
+
+@keyframes brand-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes brand-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.trusted-brands__item img {
+  width: min(100%, 150px);
+  height: 48px;
+  object-fit: contain;
+}
+
+.trusted-brands__fallback {
+  position: relative;
+  color: var(--color-text-muted);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.trusted-brands__fallback::before {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 0.55rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  content: '';
+  vertical-align: 2px;
+}
+
+@media (max-width: 860px) {
+  .trusted-brands__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .trusted-brands__intro {
+    margin-bottom: 2rem;
+  }
+
+  .trusted-brands__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .trusted-brands__item {
+    padding: 0.8rem 0.35rem;
+  }
+}
