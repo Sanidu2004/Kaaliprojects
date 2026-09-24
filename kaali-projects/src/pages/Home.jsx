@@ -11,14 +11,18 @@ import SocialCTA from '../components/sections/SocialCTA.jsx'
 export default function Home() {
   return (
     <>
-      <Hero />
+      <div id="home"><Hero /></div>
       <StatsBar />
-      <ValuePropCards />
-      <WhyChooseUs />
-      <ServicesShowcase />
-      <Testimonials />
-      <TrustedBrands />
-      <ContactCTA />
+      <div id="about">
+        <ValuePropCards />
+        <WhyChooseUs />
+      </div>
+      <div id="services"><ServicesShowcase /></div>
+      <div id="work">
+        <Testimonials />
+        <TrustedBrands />
+      </div>
+      <div id="contact"><ContactCTA /></div>
       <SocialCTA />
     </>
   )

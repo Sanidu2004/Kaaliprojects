@@ -6,26 +6,42 @@
   border-radius: var(--radius-pill);
   font-size: 0.95rem;
   font-weight: 600;
-  transition: transform var(--transition-base), background var(--transition-base), color var(--transition-base);
+  background-size: 220% 220%;
+  transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1), background-position 350ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 350ms ease;
 }
 
 .btn--primary {
-  background: var(--color-primary);
+  background-image: var(--gradient-brand);
+  background-position: 0% 50%;
   color: var(--color-on-primary);
+  box-shadow: 0 10px 28px rgb(29 162 216 / 0.18);
 }
 
 .btn--primary:hover {
-  background: var(--color-primary-dark);
+  background-position: 100% 50%;
+  box-shadow: 0 14px 34px rgb(127 205 255 / 0.3), 0 0 22px rgb(168 85 247 / 0.16);
   transform: translateY(-2px);
 }
 
 .btn--ghost {
-  background: transparent;
-  color: var(--color-white);
+  background: var(--gradient-brand);
+  background-size: 220% 220%;
+  background-position: 0% 50%;
+  color: #ffffff;
   border: 1px solid var(--color-border);
+  box-shadow: 0 8px 24px rgb(29 162 216 / 0.12);
 }
 
 .btn--ghost:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  background-position: 100% 50%;
+  border-color: transparent;
+  color: #ffffff;
+  box-shadow: 0 12px 30px rgb(127 205 255 / 0.24), 0 0 18px rgb(168 85 247 / 0.14);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
 }

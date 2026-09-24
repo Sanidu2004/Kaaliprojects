@@ -12,11 +12,15 @@
   place-items: center;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
-  background: #ff0000;
-  transition: transform var(--transition-base);
+  border-radius: 18px;
+  background: #FF0000;
+  color: #FFFFFF;
+  box-shadow: 0 12px 28px rgb(255 0 0 / 0.2);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), background var(--transition-base);
 }
 
 .social-cta__play:hover {
-  transform: scale(1.06);
+  background: #E60000;
+  box-shadow: 0 16px 34px rgb(255 0 0 / 0.34);
+  transform: translateY(-3px) scale(1.06);
 }

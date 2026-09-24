@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { navLinks, socialLinks } from '../../data/navLinks.js'
 import './Navbar.css'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [activeSection, setActiveSection] = useState(getInitialSection)
   const [theme, setTheme] = useState(() => {
     return window.localStorage.getItem('kaali-theme') || 'dark'
   })
@@ -16,33 +17,55 @@ export default function Navbar() {
   }, [theme])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24)
+
+      const sections = navLinks
+        .map((link) => document.getElementById(link.path.slice(1)))
+        .filter(Boolean)
+      const current = sections.reduce((matched, section) => {
+        const isPastSectionStart = section.getBoundingClientRect().top <= 140
+        return isPastSectionStart ? section.id : matched
+      }, 'home')
+
+      setActiveSection(window.scrollY < 140 ? 'home' : current)
+    }
+
+    const onHashChange = () => {
+      setActiveSection(getInitialSection())
+    }
+
     window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('hashchange', onHashChange)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('hashchange', onHashChange)
+    }
   }, [])
 
   return (
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="container navbar__inner">
-        <NavLink to="/" className="navbar__logo" aria-label="Kaali Projects home">
+        <Link to="/#home" className="navbar__logo" aria-label="Kaali Projects home">
           KAALI <span>PROJECTS</span>
-        </NavLink>
+        </Link>
 
         <nav
           className={`navbar__links ${isOpen ? 'navbar__links--open' : ''}`}
           aria-label="Primary"
         >
           {navLinks.map((link) => (
-            <NavLink
+            <a
               key={link.path}
-              to={link.path}
-              className={({ isActive }) =>
-                `navbar__link ${isActive ? 'navbar__link--active' : ''}`
-              }
-              onClick={() => setIsOpen(false)}
+              href={link.path}
+              className={`navbar__link ${activeSection === link.path.slice(1) ? 'navbar__link--active' : ''}`}
+              onClick={() => {
+                setActiveSection(link.path.slice(1))
+                setIsOpen(false)
+              }}
             >
-              {link.label}
-            </NavLink>
+              <span>{link.label}</span>
+            </a>
           ))}
         </nav>
 
@@ -50,7 +73,13 @@ export default function Navbar() {
           <ul className="navbar__social" aria-label="Social links">
             {socialLinks.map((s) => (
               <li key={s.label}>
-                <a href={s.href} aria-label={s.label} target="_blank" rel="noreferrer">
+                <a
+                  href={s.href}
+                  aria-label={s.label}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={s.icon === 'youtube' ? 'navbar__social-link--youtube' : ''}
+                >
                   <SocialIcon name={s.icon} />
                 </a>
               </li>
@@ -80,6 +109,18 @@ export default function Navbar() {
       </div>
     </header>
   )
+}
+
+function getInitialSection() {
+  const hashSection = window.location.hash.replace('#', '')
+  if (navLinks.some((link) => link.path === `#${hashSection}`)) {
+    return hashSection
+  }
+
+  const routeSection = window.location.pathname.replace('/', '')
+  return navLinks.some((link) => link.path === `#${routeSection}`)
+    ? routeSection
+    : 'home'
 }
 
 function ThemeIcon({ theme }) {

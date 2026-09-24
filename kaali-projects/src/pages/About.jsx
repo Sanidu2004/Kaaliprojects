@@ -8,7 +8,7 @@ export default function About() {
       <section className="section">
         <div className="container">
           <SectionHeading
-            title="About Kaali Projects"
+            title={<>Who <span className="gradient-text">We</span> Are</>}
             subtitle="A short, honest introduction to who we are and how we work — replace with the company's real story."
           />
         </div>

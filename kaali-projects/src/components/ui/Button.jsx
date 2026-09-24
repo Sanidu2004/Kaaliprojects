@@ -4,7 +4,7 @@ import './Button.css'
 /**
  * Shared button/link component.
  * variant: 'primary' | 'ghost'
- * as: 'link' (internal route) | 'a' (external) | 'button'
+ * as: 'link' (internal route) | 'a' (external) | 'anchor' (page section) | 'button'
  */
 export default function Button({
   children,
@@ -31,6 +31,10 @@ export default function Button({
         {children}
       </a>
     )
+  }
+
+  if (as === 'anchor') {
+    return <a href={href} className={className}>{children}</a>
   }
 
   return (

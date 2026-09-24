@@ -1,11 +1,10 @@
-// Primary navigation — mirrors the current site's "Work / Services / Connect"
-// grouping, expanded with real routes for a multi-page build.
+// Primary navigation for the single-page landing experience.
 export const navLinks = [
-  { label: 'Home', path: '/' },
-  { label: 'About', path: '/about' },
-  { label: 'Services', path: '/services' },
-  { label: 'Work', path: '/work' },
-  { label: 'Contact', path: '/contact' },
+  { label: 'Home', path: '#home' },
+  { label: 'About', path: '#about' },
+  { label: 'Services', path: '#services' },
+  { label: 'Work', path: '#work' },
+  { label: 'Contact', path: '#contact' },
 ]
 
 export const socialLinks = [

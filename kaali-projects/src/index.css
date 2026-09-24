@@ -2,25 +2,39 @@
    Design Tokens — Kaali Projects
    ========================================================================== */
 :root {
-  /* Colors */
-  --color-bg: #0a0a0e;
-  /* primary dark background */
-  --color-bg-alt: #131318;
-  /* slightly lifted section background */
-  --color-surface: #1b1b22;
-  /* card surfaces */
-  --color-primary: #ff6a1a;
-  /* Kaali orange (from logo) */
-  --color-primary-rgb: 255 106 26;
-  --color-primary-dark: #e85a0c;
-  --color-primary-soft: #ffb27a;
-  --color-on-primary: #ffffff;
-  --color-white: #ffffff;
-  --color-text: #f5f5f7;
-  --color-text-muted: #9a9aa5;
-  --color-text-faint: #5c5c66;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-grid: rgba(255, 178, 122, 0.045);
+  /* Premium dark gradient palette */
+  --bg-primary: #0B0F1A;
+  --bg-secondary: #111827;
+  --bg-card: #1A2234;
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0AEC0;
+  --text-muted: #718096;
+  --gradient-cyan-purple: linear-gradient(135deg, #22D3EE 0%, #818CF8 50%, #C084FC 100%);
+  --gradient-cyan-orange: linear-gradient(135deg, #22D3EE 0%, #F97316 100%);
+  --gradient-blue-purple: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+  --gradient-text: linear-gradient(90deg, #22D3EE, #818CF8, #C084FC, #22D3EE);
+  --gradient-stats: linear-gradient(90deg, #22D3EE 0%, #2DD4BF 30%, #8B5CF6 70%, #F97316 100%);
+  --accent-cyan: #22D3EE;
+  --accent-blue: #3B82F6;
+  --accent-purple: #8B5CF6;
+  --accent-orange: #F97316;
+  --accent-cyan-rgb: 34 211 238;
+  --color-bg: var(--bg-primary);
+  --color-bg-alt: var(--bg-secondary);
+  --color-surface: var(--bg-card);
+  --color-primary: var(--accent-cyan);
+  --color-primary-rgb: var(--accent-cyan-rgb);
+  --color-primary-dark: var(--accent-blue);
+  --color-primary-soft: #818CF8;
+  --color-on-primary: #FFFFFF;
+  --color-white: var(--text-primary);
+  --gradient-brand: var(--gradient-cyan-purple);
+  --gradient-brand-hover: var(--gradient-blue-purple);
+  --color-text: var(--text-primary);
+  --color-text-muted: var(--text-secondary);
+  --color-text-faint: var(--text-muted);
+  --color-border: rgb(129 140 248 / 0.16);
+  --color-grid: rgb(34 211 238 / 0.045);
 
   /* Typography */
   --font-display: 'Poppins', 'Segoe UI', sans-serif;
@@ -45,20 +59,23 @@
 }
 
 :root[data-theme='light'] {
-  --color-bg: #f8fcfa;
-  --color-bg-alt: #dff6ef;
-  --color-surface: #ffffff;
-  --color-primary: #00a98f;
-  --color-primary-rgb: 0 169 143;
-  --color-primary-dark: #007f6c;
-  --color-primary-soft: #007b69;
-  --color-on-primary: #ffffff;
-  --color-white: #102c28;
-  --color-text: #1e3935;
-  --color-text-muted: #496d66;
-  --color-text-faint: #789a92;
-  --color-border: rgba(16, 72, 63, 0.16);
-  --color-grid: rgba(0, 140, 118, 0.045);
+  --bg-primary: #F7FAFC;
+  --bg-secondary: #EDF2F7;
+  --bg-card: #FFFFFF;
+  --text-primary: #0B0F1A;
+  --text-secondary: #4A5568;
+  --text-muted: #718096;
+  --color-bg: var(--bg-primary);
+  --color-bg-alt: var(--bg-secondary);
+  --color-surface: var(--bg-card);
+  --color-white: var(--text-primary);
+  --color-text: var(--text-primary);
+  --color-text-muted: var(--text-secondary);
+  --color-text-faint: var(--text-muted);
+  --color-border: rgb(49 46 129 / 0.16);
+  --color-grid: rgb(59 130 246 / 0.05);
+  --color-primary-soft: #6366F1;
+  --gradient-stats: linear-gradient(90deg, #22D3EE 0%, #2DD4BF 30%, #8B5CF6 70%, #F97316 100%);
 }
 
 *,
@@ -150,6 +167,25 @@ img {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--accent-cyan);
   outline-offset: 3px;
+}
+
+.gradient-text {
+  color: transparent;
+  background-image: var(--gradient-text);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: gradient-text-flow 10s linear infinite;
+}
+
+@keyframes gradient-text-flow {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 100% 50%;
+  }
 }

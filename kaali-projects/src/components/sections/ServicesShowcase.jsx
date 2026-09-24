@@ -12,7 +12,7 @@ export default function ServicesShowcase() {
             Our campaigns drive meaningful results, turning your goals into
             measurable achievements.
           </p>
-          <Button as="link" to="/services" variant="ghost">See All Services</Button>
+          <Button as="anchor" href="#services" variant="ghost">See All Services</Button>
         </div>
 
         <ul className="services-showcase__list">

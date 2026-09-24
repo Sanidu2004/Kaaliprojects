@@ -20,7 +20,7 @@
   height: 3px;
   margin-top: 1.35rem;
   border-radius: var(--radius-pill);
-  background: linear-gradient(90deg, var(--color-primary), transparent);
+  background: var(--gradient-cyan-purple);
   content: '';
 }
 

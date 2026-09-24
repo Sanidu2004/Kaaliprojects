@@ -12,7 +12,7 @@ export default function SocialCTA() {
           rel="noreferrer"
           aria-label="Watch on YouTube"
         >
-          <svg width="50" height="50" viewBox="0 0 24 24" fill="var(--color-white)">
+          <svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
             <path d="M8 16V8l8 4-8 4Z" />
           </svg>
         </a>
