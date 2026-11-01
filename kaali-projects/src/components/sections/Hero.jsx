@@ -28,9 +28,12 @@ export default function Hero() {
         <div className="hero__image-circle">
           <img
             src={heroImage}
-            alt="Kaali Projects"
+            alt="Kalith Yuran"
             className="hero__image"
           />
+        </div>
+        <div className="hero__person-meta">
+          <h2 className="hero__person-name">Kalith Yuran</h2>
         </div>
       </div>
     </section>
