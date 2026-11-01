@@ -25,11 +25,13 @@ export default function Hero() {
       </div>
 
       <div className="hero__image-wrapper">
-        <img
-          src={heroImage}
-          alt="Kaali Projects"
-          className="hero__image"
-        />
+        <div className="hero__image-circle">
+          <img
+            src={heroImage}
+            alt="Kaali Projects"
+            className="hero__image"
+          />
+        </div>
       </div>
     </section>
   )
