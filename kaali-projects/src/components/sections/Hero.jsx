@@ -1,4 +1,5 @@
 import Button from '../ui/Button.jsx'
+import heroImage from '../../assets/images/kaali.png'
 import './Hero.css'
 
 export default function Hero() {
@@ -21,6 +22,14 @@ export default function Hero() {
           <Button as="anchor" href="#work" variant="primary">Explore Our Work</Button>
           <Button as="anchor" href="#contact" variant="ghost">Contact Us</Button>
         </div>
+      </div>
+
+      <div className="hero__image-wrapper">
+        <img
+          src={heroImage}
+          alt="Kaali Projects"
+          className="hero__image"
+        />
       </div>
     </section>
   )

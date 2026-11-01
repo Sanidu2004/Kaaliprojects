@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { navLinks, socialLinks } from '../../data/navLinks.js'
 import './Navbar.css'
 
@@ -46,68 +45,68 @@ export default function Navbar() {
   return (
     <header className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
       <div className="container navbar__inner">
-        <Link to="/#home" className="navbar__logo" aria-label="Kaali Projects home">
-          KAALI <span>PROJECTS</span>
-        </Link>
+          <a href="#home" className="navbar__logo" aria-label="Kaali Projects home">
+            KAALI <span>PROJECTS</span>
+      </a>
 
-        <nav
-          className={`navbar__links ${isOpen ? 'navbar__links--open' : ''}`}
-          aria-label="Primary"
-        >
-          {navLinks.map((link) => (
-            <a
-              key={link.path}
-              href={link.path}
-              className={`navbar__link ${activeSection === link.path.slice(1) ? 'navbar__link--active' : ''}`}
-              onClick={() => {
-                setActiveSection(link.path.slice(1))
-                setIsOpen(false)
-              }}
-            >
-              <span>{link.label}</span>
-            </a>
+      <nav
+        className={`navbar__links ${isOpen ? 'navbar__links--open' : ''}`}
+        aria-label="Primary"
+      >
+        {navLinks.map((link) => (
+          <a
+            key={link.path}
+            href={link.path}
+            className={`navbar__link ${activeSection === link.path.slice(1) ? 'navbar__link--active' : ''}`}
+            onClick={() => {
+              setActiveSection(link.path.slice(1))
+              setIsOpen(false)
+            }}
+          >
+            <span>{link.label}</span>
+          </a>
+        ))}
+      </nav>
+
+      <div className="navbar__actions">
+        <ul className="navbar__social" aria-label="Social links">
+          {socialLinks.map((s) => (
+            <li key={s.label}>
+              <a
+                href={s.href}
+                aria-label={s.label}
+                target="_blank"
+                rel="noreferrer"
+                className={s.icon === 'youtube' ? 'navbar__social-link--youtube' : ''}
+              >
+                <SocialIcon name={s.icon} />
+              </a>
+            </li>
           ))}
-        </nav>
+        </ul>
 
-        <div className="navbar__actions">
-          <ul className="navbar__social" aria-label="Social links">
-            {socialLinks.map((s) => (
-              <li key={s.label}>
-                <a
-                  href={s.href}
-                  aria-label={s.label}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={s.icon === 'youtube' ? 'navbar__social-link--youtube' : ''}
-                >
-                  <SocialIcon name={s.icon} />
-                </a>
-              </li>
-            ))}
-          </ul>
+        <button
+          className="navbar__theme-toggle"
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+          title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+          onClick={() => setTheme((currentTheme) => currentTheme === 'dark' ? 'light' : 'dark')}
+        >
+          <ThemeIcon theme={theme} />
+        </button>
 
-          <button
-            className="navbar__theme-toggle"
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-            onClick={() => setTheme((currentTheme) => currentTheme === 'dark' ? 'light' : 'dark')}
-          >
-            <ThemeIcon theme={theme} />
-          </button>
-
-          <button
-            className="navbar__toggle"
-            aria-label="Toggle navigation menu"
-            aria-expanded={isOpen}
-            onClick={() => setIsOpen((v) => !v)}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
+        <button
+          className="navbar__toggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded={isOpen}
+          onClick={() => setIsOpen((v) => !v)}
+        >
+          <span />
+          <span />
+          <span />
+        </button>
       </div>
-    </header>
+    </div>
+    </header >
   )
 }
 

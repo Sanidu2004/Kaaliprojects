@@ -1,29 +1,19 @@
-import { Link } from 'react-router-dom'
 import './Button.css'
 
 /**
  * Shared button/link component.
  * variant: 'primary' | 'ghost'
- * as: 'link' (internal route) | 'a' (external) | 'anchor' (page section) | 'button'
+ * as: 'a' (external) | 'anchor' (page section) | 'button'
  */
 export default function Button({
   children,
   variant = 'primary',
   as = 'button',
-  to,
   href,
   onClick,
   type = 'button',
 }) {
   const className = `btn btn--${variant}`
-
-  if (as === 'link') {
-    return (
-      <Link to={to} className={className}>
-        {children}
-      </Link>
-    )
-  }
 
   if (as === 'a') {
     return (

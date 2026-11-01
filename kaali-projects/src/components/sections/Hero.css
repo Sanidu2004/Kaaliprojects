@@ -44,3 +44,44 @@
   margin-top: 2.5rem;
   flex-wrap: wrap;
 }
+
+.hero__image-wrapper {
+  margin-top: 5rem;
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  overflow: visible;
+}
+
+
+  /* Ambient glow behind image matching website neon colors */
+  .hero__image-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.14) 0%, rgba(192, 132, 252, 0.09) 45%, transparent 70%);
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Image seamlessly dissolved into the background grid via transparency mask */
+  .hero__image {
+    width: 100%;
+    height: auto;
+    max-height: 92vh;
+    object-fit: cover;
+    object-position: center 10%;
+    display: block;
+    position: relative;
+    z-index: 1;
+    -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, #000 40%, transparent 85%);
+    mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, #000 40%, transparent 85%);
+  }
