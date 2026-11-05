@@ -17,7 +17,7 @@ export default function Testimonials() {
     if (!slider) return
 
     let animationFrameId
-    const speed = 0.8 // smooth scroll speed (pixels per frame)
+    const speed = 0.85 // smooth scroll speed (pixels per frame)
 
     // Position in the middle set on load so user can scroll left or right immediately
     const initMiddle = () => {
@@ -29,29 +29,29 @@ export default function Testimonials() {
     initMiddle()
 
     const step = () => {
-        // Pause movement if user is hovering over a card or actively dragging/touching
-        if (slider && !isInteractingRef.current && !isHoveredRef.current) {
-          slider.scrollLeft += speed
+      // Pause movement if user is hovering over a card or actively dragging/touching
+      if (slider && !isInteractingRef.current && !isHoveredRef.current) {
+        slider.scrollLeft += speed
 
-          const oneThird = slider.scrollWidth / 3
-          if (oneThird > 0) {
-            if (slider.scrollLeft >= oneThird * 2) {
-              slider.scrollLeft -= oneThird
-            } else if (slider.scrollLeft <= 5) {
-              slider.scrollLeft += oneThird
-            }
+        const oneThird = slider.scrollWidth / 3
+        if (oneThird > 0) {
+          if (slider.scrollLeft >= oneThird * 2) {
+            slider.scrollLeft -= oneThird
+          } else if (slider.scrollLeft <= 5) {
+            slider.scrollLeft += oneThird
           }
         }
-        animationFrameId = requestAnimationFrame(step)
       }
-
       animationFrameId = requestAnimationFrame(step)
+    }
 
-      return () => {
-        cancelAnimationFrame(animationFrameId)
-        if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
-      }
-    }, [])
+    animationFrameId = requestAnimationFrame(step)
+
+    return () => {
+      cancelAnimationFrame(animationFrameId)
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+    }
+  }, [])
 
   // Keep infinite wrap even when user scrolls or drags
   const handleScroll = () => {
@@ -106,66 +106,69 @@ export default function Testimonials() {
     sliderRef.current.scrollLeft = dragStartRef.current.scrollLeft - walk
   }
 
-    const handleMouseUp = () => {
-      if (isDragging) {
-        setIsDragging(false)
-        scheduleResume()
-      }
-    }
-
-    // Touch / Finger Handlers for Mobile and Tablets
-    const handleTouchStart = () => {
-      isInteractingRef.current = true
-      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
-    }
-
-    const handleTouchEnd = () => {
+  const handleMouseUp = () => {
+    if (isDragging) {
+      setIsDragging(false)
       scheduleResume()
     }
-
-    // Duplicate 3 times for a seamless infinite loop
-    const displayTestimonials = [...testimonials, ...testimonials, ...testimonials]
-
-    return (
-      <section className="testimonials section">
-        <div className="container">
-          <div className="testimonials__header">
-            <SectionHeading
-              title="What Clients Say. Our Impact in Action."
-              align="left"
-            />
-          </div>
-
-          <div
-            ref={sliderRef}
-            className={`testimonials__slider ${isDragging ? 'is-dragging' : ''}`}
-            onScroll={handleScroll}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-            aria-label="Client testimonials"
-          >
-            {displayTestimonials.map((testimonial, index) => (
-              <figure key={`${testimonial.name}-${index}`} className="testimonial-card">
-                <div className="testimonial-card__media">
-                  {testimonial.image && (
-                    <img src={testimonial.image} alt={`${testimonial.name} profile`} draggable="false" />
-                  )}
-                  {!testimonial.image && <span>Client image</span>}
-                </div>
-                <blockquote>&ldquo;{testimonial.quote}&rdquo;</blockquote>
-                <figcaption>
-                  <span className="testimonial-card__name">{testimonial.name}</span>
-                  <span className="testimonial-card__role">{testimonial.role}</span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-    )
   }
+
+  // Touch / Finger Handlers for Mobile and Tablets
+  const handleTouchStart = () => {
+    isInteractingRef.current = true
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+  }
+
+  const handleTouchEnd = () => {
+    scheduleResume()
+  }
+
+  // Duplicate 3 times for a seamless infinite loop
+  const displayTestimonials = [...testimonials, ...testimonials, ...testimonials]
+
+  return (
+    <section className="testimonials section" id="work">
+      <div className="container">
+        <div className="testimonials__header reveal-on-scroll">
+          <SectionHeading
+            title="What Clients Say. Our Impact in Action."
+            align="left"
+          />
+        </div>
+
+        <div
+          ref={sliderRef}
+          className={`testimonials__slider ${isDragging ? 'is-dragging' : ''}`}
+          onScroll={handleScroll}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+          aria-label="Client testimonials"
+        >
+          {displayTestimonials.map((testimonial, index) => (
+            <figure key={`${testimonial.name}-${index}`} className="testimonial-card">
+              <div className="testimonial-card__media">
+                {testimonial.image ? (
+                  <img src={testimonial.image} alt={`${testimonial.name} profile`} draggable="false" />
+                ) : (
+                  <div className="testimonial-card__avatar-placeholder">
+                    <span>{testimonial.name.slice(0, 2).toUpperCase()}</span>
+                  </div>
+                )}
+              </div>
+              <blockquote>&ldquo;{testimonial.quote}&rdquo;</blockquote>
+              <figcaption>
+                <span className="testimonial-card__name">{testimonial.name}</span>
+                <span className="testimonial-card__role">{testimonial.role}</span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

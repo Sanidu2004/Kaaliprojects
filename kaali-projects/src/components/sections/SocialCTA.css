@@ -1,26 +1,70 @@
+.social-cta {
+  position: relative;
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+}
+
 .social-cta__inner {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .social-cta h2 {
   font-size: var(--fs-h2);
-  margin-bottom: 2rem;
+  margin-bottom: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
 }
 
 .social-cta__play {
+  position: relative;
   display: inline-grid;
   place-items: center;
   width: 88px;
   height: 88px;
-  border-radius: 18px;
+  border-radius: 22px;
   background: #FF0000;
   color: #FFFFFF;
-  box-shadow: 0 12px 28px rgb(255 0 0 / 0.2);
-  transition: transform var(--transition-base), box-shadow var(--transition-base), background var(--transition-base);
+  box-shadow: 0 12px 35px rgba(255, 0, 0, 0.35), 0 0 45px rgba(255, 0, 0, 0.2);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s ease,
+    background 0.35s ease;
+}
+
+.social-cta__play-ripple {
+  position: absolute;
+  inset: -6px;
+  border-radius: 28px;
+  border: 1.5px solid rgba(255, 0, 0, 0.5);
+  animation: play-ring-pulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  pointer-events: none;
 }
 
 .social-cta__play:hover {
   background: #E60000;
-  box-shadow: 0 16px 34px rgb(255 0 0 / 0.34);
-  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 16px 45px rgba(255, 0, 0, 0.55), 0 0 65px rgba(255, 0, 0, 0.35);
+  transform: translateY(-4px) scale(1.06);
+}
+
+.social-cta__play:active {
+  transform: translateY(-1px) scale(1.02);
+}
+
+@keyframes play-ring-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .social-cta__play-ripple {
+    animation: none !important;
+  }
 }

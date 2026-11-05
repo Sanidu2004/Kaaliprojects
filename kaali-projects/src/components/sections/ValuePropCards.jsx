@@ -5,17 +5,23 @@ export default function ValuePropCards() {
   return (
     <section className="value-cards section">
       <div className="container">
-        <h2 className="value-cards__heading">Elevate Your Brand. Start Growing.</h2>
+        <h2 className="value-cards__heading reveal-on-scroll">Elevate Your Brand. Start Growing.</h2>
 
         <div className="value-cards__grid">
           {valueCards.map((card, index) => (
-            <article key={card.tag} className="value-card">
-              <span className="value-card__number">0{index + 1}</span>
-              <span className="value-card__tag">{card.tag}</span>
+            <article
+              key={card.tag}
+              className={`value-card reveal-on-scroll reveal-delay-${index + 1}`}
+            >
+              <div className="value-card__header">
+                <span className="value-card__number">0{index + 1}</span>
+                <span className="value-card__tag">{card.tag}</span>
+              </div>
               <div className={`value-card__icon value-card__icon--${card.icon}`} aria-hidden="true">
                 <ValueIcon name={card.icon} />
               </div>
               <p className="value-card__description">{card.description}</p>
+              <div className="value-card__glow-line" aria-hidden="true" />
             </article>
           ))}
         </div>
@@ -37,7 +43,7 @@ function ValueIcon({ name }) {
     ),
   }
   return (
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       {icons[name]}
     </svg>
   )

@@ -3,7 +3,7 @@ import './SocialCTA.css'
 export default function SocialCTA() {
   return (
     <section className="social-cta section">
-      <div className="container social-cta__inner">
+      <div className="container social-cta__inner reveal-on-scroll">
         <h2>Stay tuned on YouTube</h2>
         <a
           className="social-cta__play"
@@ -12,7 +12,8 @@ export default function SocialCTA() {
           rel="noreferrer"
           aria-label="Watch on YouTube"
         >
-          <svg width="50" height="50" viewBox="0 0 24 24" fill="currentColor">
+          <div className="social-cta__play-ripple" aria-hidden="true" />
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="currentColor">
             <path d="M8 16V8l8 4-8 4Z" />
           </svg>
         </a>

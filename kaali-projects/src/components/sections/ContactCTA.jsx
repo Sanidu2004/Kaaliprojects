@@ -4,9 +4,12 @@ import './ContactCTA.css'
 
 export default function ContactCTA() {
   return (
-    <section className="contact-cta section">
-      <div className="container">
-        <SectionHeading title="Let's Talk" />
+    <section className="contact-cta section" id="contact">
+      <div className="container reveal-on-scroll">
+        <SectionHeading
+          title="Let's Talk"
+          subtitle="Ready to elevate your brand? Reach out and let's craft something unforgettable."
+        />
         <ContactForm />
       </div>
     </section>

@@ -6,14 +6,19 @@ export default function WhyChooseUs() {
   return (
     <section className="why-us section">
       <div className="container">
-        <SectionHeading
-          title="Why Choose Us?"
-          subtitle="Visionary strategy for success — we think beyond the present, crafting strategies that ensure long-term results."
-        />
+        <div className="reveal-on-scroll">
+          <SectionHeading
+            title="Why Choose Us?"
+            subtitle="Visionary strategy for success — we think beyond the present, crafting strategies that ensure long-term results."
+          />
+        </div>
 
         <div className="why-us__grid">
-          {whyChooseUs.map((item) => (
-            <div key={item.title} className="why-us__item">
+          {whyChooseUs.map((item, index) => (
+            <div
+              key={item.title}
+              className={`why-us__item reveal-on-scroll reveal-delay-${(index % 4) + 1}`}
+            >
               <div className="why-us__icon" aria-hidden="true">
                 <WhyIcon name={item.icon} />
               </div>
@@ -35,7 +40,7 @@ function WhyIcon({ name }) {
     chart: <path d="M4 19V9m6 10V5m6 14v-7" />,
   }
   return (
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
       {icons[name]}
     </svg>
   )

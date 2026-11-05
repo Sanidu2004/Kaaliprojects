@@ -9,13 +9,13 @@ export default function TrustedBrands() {
   return (
     <section className="trusted-brands section">
       <div className="container">
-        <div className="trusted-brands__intro">
+        <div className="trusted-brands__intro reveal-on-scroll">
           <span className="trusted-brands__eyebrow">Selected collaborations</span>
           <h2 className="trusted-brands__heading">Trusted by Leading Brands</h2>
           <p>Ideas built to move ambitious brands forward.</p>
         </div>
 
-        <div className="trusted-brands__marquees" aria-label="Trusted clients">
+        <div className="trusted-brands__marquees reveal-on-scroll" aria-label="Trusted clients">
           <div className="trusted-brands__window">
             <div className="trusted-brands__track trusted-brands__track--forward">
               <BrandSet brands={firstRowBrands} />

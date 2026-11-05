@@ -1,15 +1,55 @@
+import { useRef, useCallback } from 'react'
 import kaaliImage from '../../assets/images/kaali_2.jpeg'
 import './Hero.css'
 
 export default function Hero() {
+  const heroRef = useRef(null)
+  const rafRef = useRef(null)
+
+  // Lightweight 60fps mouse parallax effect
+  const handleMouseMove = useCallback((e) => {
+    if (!heroRef.current) return
+    if (rafRef.current) cancelAnimationFrame(rafRef.current)
+
+    const rect = heroRef.current.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2 // -1 to 1
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2 // -1 to 1
+
+    rafRef.current = requestAnimationFrame(() => {
+      if (heroRef.current) {
+        heroRef.current.style.setProperty('--mouse-x', `${(x * 18).toFixed(2)}px`)
+        heroRef.current.style.setProperty('--mouse-y', `${(y * 18).toFixed(2)}px`)
+        heroRef.current.style.setProperty('--mouse-rot-x', `${(-y * 6).toFixed(2)}deg`)
+        heroRef.current.style.setProperty('--mouse-rot-y', `${(x * 6).toFixed(2)}deg`)
+      }
+    })
+  }, [])
+
+  const handleMouseLeave = useCallback(() => {
+    if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    if (heroRef.current) {
+      heroRef.current.style.setProperty('--mouse-x', '0px')
+      heroRef.current.style.setProperty('--mouse-y', '0px')
+      heroRef.current.style.setProperty('--mouse-rot-x', '0deg')
+      heroRef.current.style.setProperty('--mouse-rot-y', '0deg')
+    }
+  }, [])
+
   return (
-    <section className="hero" id="home" aria-label="Hero Introduction">
+    <section
+      ref={heroRef}
+      className="hero"
+      id="home"
+      aria-label="Hero Introduction"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       {/* =========================================================================
           Layer 1: Futuristic Atmospheric Background with Symmetrical Chevrons
           Color Theme: Electric Cyan (#22D3EE) + Neon Purple (#8B5CF6 / #818CF8)
           ========================================================================= */}
       <div className="hero__background" aria-hidden="true">
-        {/* Deep ambient background radial glows */}
+        {/* Deep ambient background radial glows with mouse responsiveness */}
         <div className="hero__glow hero__glow--center" />
         <div className="hero__glow hero__glow--top" />
         <div className="hero__glow hero__glow--left" />
@@ -29,13 +69,13 @@ export default function Hero() {
           >
             <defs>
               <linearGradient id="chevGradCyanLeft" x1="100%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.9" />
-                <stop offset="50%" stopColor="#818CF8" stopOpacity="0.45" />
-                <stop offset="100%" stopColor="#3B82F6" stopOpacity="0.05" />
+                <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.95" />
+                <stop offset="50%" stopColor="#818CF8" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#3B82F6" stopOpacity="0.08" />
               </linearGradient>
               <linearGradient id="chevGradPurpleLeft" x1="100%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#C084FC" stopOpacity="0.8" />
-                <stop offset="60%" stopColor="#8B5CF6" stopOpacity="0.3" />
+                <stop offset="0%" stopColor="#C084FC" stopOpacity="0.85" />
+                <stop offset="60%" stopColor="#8B5CF6" stopOpacity="0.35" />
                 <stop offset="100%" stopColor="#1A2234" stopOpacity="0.05" />
               </linearGradient>
               <filter id="chevGlowLeft" x="-30%" y="-30%" width="160%" height="160%">
@@ -50,7 +90,8 @@ export default function Hero() {
               strokeWidth="5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.3"
+              opacity="0.35"
+              className="hero__chevron-path hero__chevron-path--1"
             />
             {/* Mid-Outer Chevron */}
             <polyline
@@ -59,8 +100,9 @@ export default function Hero() {
               strokeWidth="7"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.55"
+              opacity="0.6"
               filter="url(#chevGlowLeft)"
+              className="hero__chevron-path hero__chevron-path--2"
             />
             {/* Mid-Inner Chevron */}
             <polyline
@@ -69,8 +111,9 @@ export default function Hero() {
               strokeWidth="9"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.75"
+              opacity="0.8"
               filter="url(#chevGlowLeft)"
+              className="hero__chevron-path hero__chevron-path--3"
             />
             {/* Inner Bold Neon Chevron */}
             <polyline
@@ -79,8 +122,9 @@ export default function Hero() {
               strokeWidth="10"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.95"
+              opacity="0.98"
               filter="url(#chevGlowLeft)"
+              className="hero__chevron-path hero__chevron-path--4"
             />
           </svg>
         </div>
@@ -95,13 +139,13 @@ export default function Hero() {
           >
             <defs>
               <linearGradient id="chevGradCyanRight" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.9" />
-                <stop offset="50%" stopColor="#818CF8" stopOpacity="0.45" />
-                <stop offset="100%" stopColor="#3B82F6" stopOpacity="0.05" />
+                <stop offset="0%" stopColor="#22D3EE" stopOpacity="0.95" />
+                <stop offset="50%" stopColor="#818CF8" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#3B82F6" stopOpacity="0.08" />
               </linearGradient>
               <linearGradient id="chevGradPurpleRight" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#C084FC" stopOpacity="0.8" />
-                <stop offset="60%" stopColor="#8B5CF6" stopOpacity="0.3" />
+                <stop offset="0%" stopColor="#C084FC" stopOpacity="0.85" />
+                <stop offset="60%" stopColor="#8B5CF6" stopOpacity="0.35" />
                 <stop offset="100%" stopColor="#1A2234" stopOpacity="0.05" />
               </linearGradient>
               <filter id="chevGlowRight" x="-30%" y="-30%" width="160%" height="160%">
@@ -116,7 +160,8 @@ export default function Hero() {
               strokeWidth="5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.3"
+              opacity="0.35"
+              className="hero__chevron-path hero__chevron-path--1"
             />
             {/* Mid-Outer Chevron */}
             <polyline
@@ -125,8 +170,9 @@ export default function Hero() {
               strokeWidth="7"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.55"
+              opacity="0.6"
               filter="url(#chevGlowRight)"
+              className="hero__chevron-path hero__chevron-path--2"
             />
             {/* Mid-Inner Chevron */}
             <polyline
@@ -135,8 +181,9 @@ export default function Hero() {
               strokeWidth="9"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.75"
+              opacity="0.8"
               filter="url(#chevGlowRight)"
+              className="hero__chevron-path hero__chevron-path--3"
             />
             {/* Inner Bold Neon Chevron */}
             <polyline
@@ -145,8 +192,9 @@ export default function Hero() {
               strokeWidth="10"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.95"
+              opacity="0.98"
               filter="url(#chevGlowRight)"
+              className="hero__chevron-path hero__chevron-path--4"
             />
           </svg>
         </div>
@@ -171,6 +219,8 @@ export default function Hero() {
               height="2304"
               loading="eager"
             />
+            {/* Subtle interactive glossy sheen on portrait */}
+            <div className="hero__portrait-sheen" aria-hidden="true" />
             {/* Bottom shadow blend */}
             <div className="hero__portrait-fade" aria-hidden="true" />
           </div>
@@ -178,33 +228,54 @@ export default function Hero() {
 
         {/* Personal Branding Identification */}
         <div className="hero__content">
-          <div className="hero__brand-header">
+          <div className="hero__brand-header hero__animate--item hero__animate--delay-1">
             <span className="hero__brand-name">KALITH YURAN</span>
             <span className="hero__brand-sep" aria-hidden="true">&bull;</span>
             <span className="hero__brand-title">KAALI PROJECTS</span>
           </div>
 
           {/* Professional Status Pill Badge */}
-          <div className="hero__badge" role="status">
+          <div className="hero__badge hero__animate--item hero__animate--delay-2" role="status">
             <span className="hero__badge-pulse" aria-hidden="true" />
             <span className="hero__badge-text">CREATOR &bull; STRATEGIST &bull; INNOVATOR</span>
           </div>
 
-          {/* Main Headline */}
+          {/* Main Headline with Word-by-Word Elegant Entrance */}
           <h1 className="hero__headline">
-            <span className="hero__headline-intro">Turning Vision Into</span>
-            <span className="hero__headline-lead">Digital Experiences.</span>
+            <span className="hero__headline-row">
+              <span className="hero__word-wrap">
+                <span className="hero__word" style={{ animationDelay: '0.45s' }}>Turning</span>
+              </span>{' '}
+              <span className="hero__word-wrap">
+                <span className="hero__word" style={{ animationDelay: '0.55s' }}>Vision</span>
+              </span>{' '}
+              <span className="hero__word-wrap">
+                <span className="hero__word" style={{ animationDelay: '0.65s' }}>Into</span>
+              </span>
+            </span>
+            <span className="hero__headline-row">
+              <span className="hero__word-wrap">
+                <span className="hero__word hero__word--gradient" style={{ animationDelay: '0.78s' }}>
+                  Digital
+                </span>
+              </span>{' '}
+              <span className="hero__word-wrap">
+                <span className="hero__word hero__word--gradient" style={{ animationDelay: '0.90s' }}>
+                  Experiences.
+                </span>
+              </span>
+            </span>
           </h1>
 
           {/* Supporting Description */}
-          <p className="hero__description">
+          <p className="hero__description hero__animate--item hero__animate--delay-4">
             Creative director, brand strategist, and founder of Kaali Projects. Crafting cinematic campaigns, innovative digital experiences, and boundary-pushing creative legacies that elevate modern brands.
           </p>
 
           {/* Call-to-Action Buttons */}
-          <div className="hero__actions">
+          <div className="hero__actions hero__animate--item hero__animate--delay-5">
             <a href="#work" className="hero__btn hero__btn--primary">
-              <span>EXPLORE MY WORK</span>
+              <span className="hero__btn-text">EXPLORE MY WORK</span>
               <svg
                 className="hero__btn-icon"
                 width="18"
@@ -223,7 +294,7 @@ export default function Hero() {
             </a>
 
             <a href="#contact" className="hero__btn hero__btn--secondary">
-              <span>LET&apos;S CONNECT</span>
+              <span className="hero__btn-text">LET&apos;S CONNECT</span>
               <svg
                 className="hero__btn-icon"
                 width="18"
@@ -241,6 +312,18 @@ export default function Hero() {
             </a>
           </div>
         </div>
+
+        {/* Smooth Animated Scroll Indicator */}
+        <a
+          href="#about"
+          className="hero__scroll-indicator hero__animate--item hero__animate--delay-6"
+          aria-label="Scroll down to About section"
+        >
+          <div className="hero__scroll-mouse" aria-hidden="true">
+            <span className="hero__scroll-wheel" />
+          </div>
+          <span className="hero__scroll-text">EXPLORE</span>
+        </a>
       </div>
     </section>
   )
